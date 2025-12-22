@@ -141,9 +141,67 @@ whispra/
 
 ## Security & Privacy Notes
 
-Whispra aims for privacy-conscious defaults and strong permission checks.  
-Planned improvements include rate limiting, audit logs, and more granular visibility controls.  
-End-to-end encryption (E2EE) is intentionally postponed until the core UX and key management design are validated.
+Whispra aims for privacy-conscious defaults and strong permission checks across all layers.
+
+### Authentication & Authorization
+
+- **JWT with refresh token rotation** for secure session management
+- **Password hashing** using Argon2id or bcrypt (minimum 12 rounds)
+- **Claims-based authorization** for granular permission checks (community roles, privacy levels)
+- **Rate limiting** on authentication endpoints to prevent brute force attacks
+- **MFA support** (planned for sensitive accounts)
+
+### API Security
+
+- **HTTPS enforced** in all environments (including local development with self-signed certificates)
+- **Strict CORS policy** with explicit domain whitelisting
+- **Input validation** on all endpoints using FluentValidation
+- **Output sanitization** to prevent XSS attacks
+- **Request size limits** on media uploads
+- **Security headers** (CSP, X-Frame-Options, HSTS)
+
+### Real-time Security (SignalR)
+
+- **JWT authentication** required for WebSocket connections
+- **Connection validation** on every message
+- **Authorization checks** before broadcasting events (e.g., verify community membership)
+- **Per-connection rate limiting** for messages and typing indicators
+
+### Data Protection
+
+- **Encryption at rest** for sensitive data in MongoDB
+- **Encryption in transit** using TLS 1.3
+- **Hashed public IDs** to prevent enumeration attacks
+- **Soft delete with audit trail** instead of hard deletes
+- **GDPR compliance**: data export and right to be forgotten
+
+### Database & Infrastructure Security
+
+- **MongoDB authentication** enabled with least-privilege users
+- **Network isolation** - databases not publicly exposed
+- **Encrypted backups** tested regularly
+- **Secrets management** via environment variables (Azure Key Vault for production)
+- **Dependency scanning** in CI pipeline (Dependabot/Snyk)
+
+### Anti-Abuse & Moderation
+
+- **Global and per-user rate limiting** (Redis-based)
+- **Content moderation queue** for manual review when needed
+- **Automated threshold alerts** for suspicious behavior patterns
+- **IP-based temporary blocking** for detected abuse
+- **Comprehensive audit logs** for sensitive actions (bans, deletions, role changes)
+
+### Security Implementation Roadmap
+
+Security features are implemented incrementally alongside core functionality:
+
+1. **Identity Phase**: HTTPS, JWT + refresh tokens, password hashing, input validation, rate limiting on auth endpoints
+2. **Communities Phase**: Claims-based authorization, visibility rule enforcement, privacy-level checks on all reads
+3. **Messaging Phase**: SignalR authentication, real-time rate limiting, connection validation
+4. **Moderation Phase**: Audit logging, report system, anti-spam measures, automated abuse detection
+5. **Pre-Production**: Complete security audit, penetration testing, SAST/DAST validation
+
+**Note on E2EE**: End-to-end encryption is intentionally postponed until core UX and key management design are validated to avoid complexity that could compromise usability and recovery flows.
 
 ## Contributing
 
