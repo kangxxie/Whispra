@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Whispra.Api/Whispra.Api.csproj" />
+  <Project Path="Whispra.Application/Whispra.Application.csproj" />
+  <Project Path="Whispra.Domain/Whispra.Domain.csproj" />
+  <Project Path="Whispra.Infrastructure/Whispra.Infrastructure.csproj" />
+</Solution>

@@ -1,0 +1,34 @@
+services: # List of services to be run
+  mongodb:
+    image: mongo:7 # MongoDB version 7 image
+    container_name: whispra-mongodb # Container name for easy identification
+    restart: unless-stopped # Auto-restart on crash
+    environment: # Environment variables for MongoDB
+      MONGO_INITDB_ROOT_USERNAME: admin # Database admin username
+      MONGO_INITDB_ROOT_PASSWORD: devpassword123 # Database admin password (dev only!)
+    ports:
+      - "27018:27017" # Expose MongoDB port (host:container) - using 27018 to avoid conflict with local MongoDB
+    volumes:
+      - mongodb_data:/data/db # Persist data outside container
+    networks:
+      - whispra-network # Connect to shared network
+
+  redis:
+    image: redis:7-alpine # Redis version 7 (lightweight Alpine image)
+    container_name: whispra-redis # Container name for easy identification
+    restart: unless-stopped # Auto-restart on crash
+    command: redis-server --requirepass devredispassword123 # Start Redis with password
+    ports:
+      - "6379:6379" # Expose Redis port (host:container)
+    volumes:
+      - redis_data:/data # Persist data outside container
+    networks:
+      - whispra-network # Connect to shared network
+
+volumes:
+  mongodb_data: # Persistent storage for MongoDB
+  redis_data: # Persistent storage for Redis
+
+networks:
+  whispra-network: # Private network for inter-container communication
+    driver: bridge # Bridge network type

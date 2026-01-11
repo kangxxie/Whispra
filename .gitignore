@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+out/
+**/bin/
+**/obj/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+**/.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+.cache/
+
+# ASP.NET
+**/appsettings.Development.json
+**/appsettings.*.json
+!**/appsettings.json
+
+# Expo
+.expo/
+.expo-shared/
+
+# Tauri
+**/target/
+**/WixTools/
