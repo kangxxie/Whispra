@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using Whispra.Domain.Entities.Auth;
 using Whispra.Domain.Entities.Users;
 using Whispra.Infrastructure.Configuration;
 
@@ -16,5 +17,5 @@ public class MongoDbContext
     }
 
     public IMongoCollection<User> Users => _database.GetCollection<User>("users");
-
+    public IMongoCollection<RefreshToken> RefreshTokens => _database.GetCollection<RefreshToken>("refresh_tokens");
 }

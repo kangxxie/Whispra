@@ -10,6 +10,7 @@ builder.Services.AddSwaggerGen();
 // Add application and infrastructure services
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 // Add CORS
 builder.Services.AddCors(options =>
@@ -33,7 +34,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
+
+// Authentication & Authorization middleware (order matters!)
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
