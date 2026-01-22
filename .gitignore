@@ -46,3 +46,7 @@ npm-debug.log*
 # Tauri
 **/target/
 **/WixTools/
+
+# Development Documentation
+DevelopmentRoadmap.md
+Roadmap.md
